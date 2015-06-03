@@ -7,6 +7,7 @@ io = require('socket.io')(server)
 
 config = require './config'
 _Router = require('./router')(io)
+messageStack = require './message-stack'
 
 server.listen(config.port)
 
@@ -20,4 +21,9 @@ app.use(_Router.get())
 io.on('connection', (socket)->
   if socket.handshake.query.token isnt config.token
     return socket.disconnect()
+
+  socket.on('api:response', (mid, statusCode, data)->
+    cb = messageStack.pop(mid)
+    cb(statusCode, data)
+  )
 )

@@ -1,5 +1,8 @@
 express = require('express')
 
+uuid = require 'uuid'
+
+messageStack = require './message-stack'
 
 class Router
   constructor: (@io)->
@@ -8,16 +11,20 @@ class Router
   get: ->
     @router
 
-  initRouter: ->
-    io = @io
-
-    @router = express.Router()
-
-    @router.all("/api/*", (req, resp, next)->
-      console.log req.path
-      next()
+  handle: (req, resp)->
+    copyPropertyArray = ["body", "originalUrl", "headers", "method"]
+    id = uuid.v1()
+    messageStack.push(id, (statusCode, data)->
+      resp.status(statusCode)
+      resp.send(data)
     )
+    data = {}
+    data[item] = req[item] for item in copyPropertyArray
+    @io.emit('api', id, data)
 
-
+  initRouter: ->
+    self = @
+    @router = express.Router()
+    @router.all("/api/*", (req, resp, next)-> self.handle(req,  resp))
 
 module.exports = (io)-> new Router(io)
