@@ -22,8 +22,8 @@ io.on('connection', (socket)->
   if socket.handshake.query.token isnt config.token
     return socket.disconnect()
 
-  socket.on('api:response', (mid, statusCode, data)->
+  socket.on('api:response', (mid, statusCode, headers, data)->
     cb = messageStack.pop(mid)
-    cb(statusCode, data)
+    cb(statusCode, headers, data)
   )
 )

@@ -1,10 +1,11 @@
 request = require 'request'
 
-request.post(
-  "https://bhf.hunantv.com/api/account/token",
-  {form: {account: "胡瀛寰", password: "8888888"}},
-  (error, resp, body)->
-    console.log error
-    console.log resp.statusCode
-    console.log body
+option =
+  url: 'http://bhf.hunantv.com/api/account/token'
+  method: 'POST'
+  formData: {account: '胡瀛寰', password: '888888'}
+request(option, (error, resp, body)->
+  console.log error
+  console.log resp.headers
+  console.log body
 )
