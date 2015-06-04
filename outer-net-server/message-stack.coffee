@@ -5,6 +5,9 @@ class Message
   push: (mid, cb)->
     @stack[mid] = cb
 
-  pop: (mid)-> @stack[mid]
+  pop: (mid)->
+    cb = @stack[mid]
+    delete @stack[mid]
+    cb
 
 module.exports = new Message()

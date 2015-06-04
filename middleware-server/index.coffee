@@ -9,8 +9,8 @@ socket.on('connect', ()->
 )
 
 getRequestOption = (data)->
-  #if not data.headers["x-token"]
-  #  data.headers["x-token"] = "03051ba4-9ec9-49c7-bfc6-2dd11cc7e74d"
+  if not data.headers["x-token"] or config.isDev
+    data.headers["x-token"] = "03051ba4-9ec9-49c7-bfc6-2dd11cc7e74d"
 
   data.headers["host"] = config.target_server_host
 

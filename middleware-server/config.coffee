@@ -3,3 +3,4 @@ module.exports =
   token: "hyh.bhf.hunantv.com"
   target_server: "http://bhf.hunantv.com"
   target_server_host: "bhf.hunantv.com"
+  isDev: false
