@@ -6,6 +6,8 @@ messageStack = require './message-stack'
 
 router = express.Router()
 
+_global = require './global'
+
 class Router
   constructor: (@io)->
     @initRouter()
@@ -13,6 +15,10 @@ class Router
   get: -> router
 
   handle: (req, resp)->
+    #当当前没有客户端连接时，直接拒绝响应
+    if _global.client_count < 1
+      return resp.status(404).end()
+
     copyPropertyArray = ["body", "originalUrl", "headers", "method"]
     id = uuid.v1()
     messageStack.push(id, (statusCode, headers, data)->

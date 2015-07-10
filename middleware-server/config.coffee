@@ -8,6 +8,7 @@ module.exports =
   ###
     api等待响应时间，超过这个响应就结束这个响应
     可以设置为false
+    为false时则根据目标服务器实际响应情况进行处理
   ###
   timeout: 6000
   isDev: false
