@@ -9,8 +9,6 @@ socket.on('connect', ()->
 )
 
 getRequestOption = (data)->
-  if (not data.headers["x-token"]) and config.isDev
-    data.headers["x-token"] = "03051ba4-9ec9-49c7-bfc6-2dd11cc7e74d"
 
   data.headers["host"] = config.target_server_host
 
@@ -21,6 +19,10 @@ getRequestOption = (data)->
       host: data.headers.host
       "x-token": data.headers["x-token"]
       "content-type": data.headers["content-type"]
+
+  #设置请求超时
+  if typeof config.timeout is "number" and config.timeout > 0
+    option.timeout = config.timeout
 
   if data.method isnt 'GET'
     option.formData = data.body
