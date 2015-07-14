@@ -11,8 +11,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(multer())
 
 app.post("/api/account/token", (req, resp, next)->
-  setTimeout(()->
-      resp.send(req.body)
-    , 4000
-  )
+  console.log 2
+  resp.send(req.body)
 )

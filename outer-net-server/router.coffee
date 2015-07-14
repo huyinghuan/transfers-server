@@ -15,6 +15,7 @@ class Router
   get: -> router
 
   handle: (req, resp)->
+    console.log 1
     #当当前没有客户端连接时，直接拒绝响应
     if _global.client_count < 1
       return resp.status(404).end()

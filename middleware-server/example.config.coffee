@@ -6,9 +6,9 @@ module.exports =
   target_server: "http://localhost:3002"
   target_server_host: "localhost:3002"
   ###
-    api等待响应时间，超过这个响应就结束这个响应
+    api等待目标服务器响应时间，超过这个响应就结束这个响应
     可以设置为false
     为false时则根据目标服务器实际响应情况进行处理
   ###
-  timeout: 6000
+  timeout: false
   isDev: false
