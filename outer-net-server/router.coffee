@@ -15,7 +15,6 @@ class Router
   get: -> router
 
   handle: (req, resp)->
-    console.log 1
     #当当前没有客户端连接时，直接拒绝响应
     if _global.client_count < 1
       return resp.status(404).end()
@@ -25,7 +24,7 @@ class Router
     messageStack.push(id, (statusCode, headers, data)->
       delete headers["content-length"] if headers
       resp.set(headers)
-      resp.status(statusCode).send(data)
+      resp.status(statusCode).end(data)
     )
     data = {}
     data[item] = req[item] for item in copyPropertyArray

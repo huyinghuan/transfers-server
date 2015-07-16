@@ -31,7 +31,6 @@ io.on('connection', (socket)->
 
   socket.on('api:response', (mid, statusCode, headers, data)->
     cb = messageStack.pop(mid)
-
     cb(statusCode, headers, data) if cb
     ###
       应该增加相关记录，及时反馈 处理完成却没有响应到数据

@@ -14,7 +14,7 @@ class Message
     timer = setTimeout(->
       if stack.hasOwnProperty(mid)
         delete stack[mid]
-        cb(502, {}, {})
+        cb(502, {}, "")
 
       #删除存储的定时器
       delete timerStack[mid] if timerStack.hasOwnProperty(mid)
@@ -28,7 +28,7 @@ class Message
     cb = stack[mid]
     delete stack[mid] if stack.hasOwnProperty(mid)
     #清除定时器
-    clearTimeout(timerStack[mid])
+    clearTimeout(timerStack[mid]) if timerStack[mid]
     delete timerStack[mid] if timerStack.hasOwnProperty(mid)
     cb
 
